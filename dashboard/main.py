@@ -11,6 +11,7 @@ sns.set(style='dark')
 
 # Dataset
 datetime_cols = ["order_approved_at", "order_delivered_carrier_date", "order_delivered_customer_date", "order_estimated_delivery_date", "order_purchase_timestamp", "shipping_limit_date"]
+
 # Check if the file exists
 if os.path.exists("./all_data.csv"):
     all_df = pd.read_csv("./all_data.csv")
@@ -18,6 +19,7 @@ if os.path.exists("./all_data.csv"):
     all_df.reset_index(inplace=True)
 else:
     st.error("File all_data.csv not found. Please ensure the file is in the correct directory.")
+    st.stop()
 
 # Geolocation Dataset
 if os.path.exists('./geolocation.csv'):
@@ -25,6 +27,7 @@ if os.path.exists('./geolocation.csv'):
     data = geolocation.drop_duplicates(subset='customer_unique_id')
 else:
     st.error("File geolocation.csv not found. Please ensure the file is in the correct directory.")
+    st.stop()
 
 for col in datetime_cols:
     all_df[col] = pd.to_datetime(all_df[col])
